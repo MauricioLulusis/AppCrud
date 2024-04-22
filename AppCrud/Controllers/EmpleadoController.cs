@@ -15,22 +15,44 @@ namespace AppCrud.Controllers
             _appDbContext = appDbContext;
         }
         [HttpGet]
-        public async Task <IActionResult> Lista()
+        public async Task<IActionResult> Lista()
         {
-            List<Empleado>lista = await _appDbContext.Empleados.ToListAsync();
+            List<Empleado> lista = await _appDbContext.Empleados.ToListAsync();
             return View(lista);
 
         }
         [HttpGet]  //el get devuelve una vista 
-        public IActionResult Nuevo() 
-        { 
+        public IActionResult Nuevo()
+        {
             return View();
         }
 
         [HttpPost] //el post va a recibir los valores de la vista Nuevo
-        public async Task <IActionResult> Nuevo(Empleado empleado)
+        public async Task<IActionResult> Nuevo(Empleado empleado)
         {
             await _appDbContext.Empleados.AddAsync(empleado);
+            await _appDbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Lista));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Editar(int Id)
+        {
+            Empleado empleado = await _appDbContext.Empleados.FirstAsync(e => e.IdEmpleado == Id);
+            return View(empleado);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Editar(Empleado empleado)
+        {
+            _appDbContext.Empleados.Update(empleado);
+            await _appDbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Lista));
+        }
+        [HttpGet]
+        public async Task<IActionResult> Eliminar(int Id)
+        {
+            Empleado empleado = await _appDbContext.Empleados.FirstAsync(e=>e.IdEmpleado==Id);
+            _appDbContext.Empleados.Remove(empleado);
             await _appDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Lista));
         }

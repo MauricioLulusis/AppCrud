@@ -21,7 +21,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(var item in Model)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>@item.IdEmpleado</td>
@@ -30,11 +30,20 @@
                         <td>@item.FechaContrato.ToString("dd/MM/yyyy")</td>
                         <td>@(item.Activo ? "SI" : "NO")</td>
                         <td>
-                           @*  <a
-                                as
-                            >
-                            Eliminar
-                            </a> *@
+                            <a asp-controller="Empleado"
+                               asp-action="Editar"
+                               asp-route-id="@item.IdEmpleado"
+                               class="btn btn-primary">
+                                Editar
+                            </a>
+
+                            <a asp-controller="Empleado"
+                               asp-action="Eliminar"
+                               asp-route-id="@item.IdEmpleado"
+                               onclick="return confirmar()"
+                               class="btn btn-danger">
+                                Eliminar
+                            </a>
 
                         </td>
                     </tr>
@@ -44,3 +53,11 @@
 
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        function confirmar(){
+            return confirm("Está seguro de eliminar el empleado?")
+        }
+    </script>
+}

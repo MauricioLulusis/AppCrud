@@ -21,5 +21,10 @@ namespace AppCrud.Controllers
             return View(lista);
 
         }
+        [HttpGet]
+        public IActionResult Nuevo() 
+        { 
+            return View();
+        }
     }
 }

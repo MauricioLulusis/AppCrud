@@ -22,7 +22,7 @@ namespace AppCrud.Data
                 tb.Property(col => col.NombreCompleto).HasMaxLength(50);
 
                 tb.Property(col => col.Correo).HasMaxLength(50);
-            });3
+            });
             modelBuilder.Entity<Empleado>().ToTable("Empleado");
         }
     }

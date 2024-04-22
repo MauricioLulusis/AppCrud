@@ -28,7 +28,7 @@
                         <td>@item.NombreCompleto</td>
                         <td>@item.Correo</td>
                         <td>@item.FechaContrato.ToString("dd/MM/yyyy")</td>
-                        <td>(@item.Activo ? "SI":"NO")</td>
+                        <td>@(item.Activo ? "SI" : "NO")</td>
                         <td>
                            @*  <a
                                 as

@@ -21,10 +21,18 @@ namespace AppCrud.Controllers
             return View(lista);
 
         }
-        [HttpGet]
+        [HttpGet]  //el get devuelve una vista 
         public IActionResult Nuevo() 
         { 
             return View();
+        }
+
+        [HttpPost] //el post va a recibir los valores de la vista Nuevo
+        public async Task <IActionResult> Nuevo(Empleado empleado)
+        {
+            await _appDbContext.Empleados.AddAsync(empleado);
+            await _appDbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Lista));
         }
     }
 }
